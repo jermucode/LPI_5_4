@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 		printf("%s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
-	printf("Successfully duplicated fd into fd_dup\n");
+	printf("Successfully duplicated fd into 1\n");
 
 	/* dup2 into a given descriptor*/
 	fd_dup2 = fcntl(0, F_DUPFD, 2);
@@ -65,9 +65,12 @@ int main(int argc, char *argv[])
 	/*  Print results of F_GETFD*/
 	printf("%d\n", fcntl(2, F_GETFD));
 
-	printf("successfully duplicated fd into fd_dup2\n");
+	printf("successfully duplicated fd into 2\n");
 	/* dup3 == fd*/
+	/* It looks like this works with or without closing fd here
 	close(fd);
+	*/
+
 	fd_dup3 = fcntl(0, F_DUPFD, 0);
 	close(fd);
 	if(fd_dup3 == -1)
@@ -79,6 +82,6 @@ int main(int argc, char *argv[])
 	/*  Print results of F_GETFD*/
 	printf("%d\n", fcntl(0, F_GETFD));
 
-	printf("successfully duplicated f3 into 0\n");
+	printf("successfully duplicated dup_f3 into 0\n");
 	exit(EXIT_SUCCESS);
 }
