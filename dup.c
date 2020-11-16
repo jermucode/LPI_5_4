@@ -62,10 +62,12 @@ int main(int argc, char *argv[])
 		printf("%s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
+	/*  Print results of F_GETFD*/
 	printf("%d\n", fcntl(2, F_GETFD));
 
 	printf("successfully duplicated fd into fd_dup2\n");
 	/* dup3 == fd*/
+	close(fd);
 	fd_dup3 = fcntl(0, F_DUPFD, 0);
 	close(fd);
 	if(fd_dup3 == -1)
@@ -74,6 +76,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 
 	}
+	/*  Print results of F_GETFD*/
 	printf("%d\n", fcntl(0, F_GETFD));
 
 	printf("successfully duplicated f3 into 0\n");
